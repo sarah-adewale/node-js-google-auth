@@ -5,7 +5,8 @@ const dotenv = require('dotenv')
 const morgan = require('morgan')
 const exphbs = require('express-handlebars')
 const passport = require('passport')
-const session = require('express-session')
+const session = require('express-session') //adding session
+const MongoStore = require('connect-mongo') //enables login session storage
 const connectDB = require('./config/db') //require db file in config folder
 
 
@@ -38,6 +39,9 @@ app.use(session({
         secret: 'keyboard cat',
         resave: false, //we dont want save a session if nothing is modified 
         saveUninitialized: false, //dont create a session until something is stored 
+        store: MongoStore.create({
+            mongoUrl: process.env.MONGO_URI
+        })
     })
 )
 
