@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const User = require('./User')
 
 // create a schema
 const StorySchema = new mongoose.Schema({
@@ -18,16 +19,12 @@ const StorySchema = new mongoose.Schema({
     },
      user: { //USER CONNECTED TO EACH STORIES
         type: mongoose.Schema.Types.ObjectId, //connecting each individual story not to the users name but to the unique object id of the database object associated with the user
-        ref: true //referencing back to the created user module
+        ref: 'User' //referencing back to the created user module
     },
-     image: {
-        type: String,
-        // required: true
-    },
-    createdAt: {
+     createdAt: {
         type: Date,
         dafualt: Date.now //assign a value if not value present(automatically put the date ans time in)
     }
 })
 
-module.exports = mongoose.model('User', UserSchema) //export mongoose
+module.exports = mongoose.model('Story', StorySchema) //export mongoose
